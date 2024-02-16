@@ -1,6 +1,6 @@
 [package]
 org = "yashiraperera"
-name = "backend"
+name = "food_service"
 version = "0.1.0"
 distribution = "2201.8.4"
 
