@@ -1,0 +1,18 @@
+schema {
+    query: Query
+}
+
+type Teacher {
+    id: ID!
+    first_name: String!
+}
+
+type TeacherResult {
+    success: Boolean!
+    errors: [String]
+    teachers: [Teacher]
+}
+
+type Query {
+    listTeachers: TeacherResult!
+}
