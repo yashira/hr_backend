@@ -1,24 +1,32 @@
 from flask import Flask
 from flask_cors import CORS
-
-
 from ariadne import load_schema_from_path, make_executable_schema, \
     graphql_sync, snake_case_fallback_resolvers, ObjectType
 from ariadne.explorer import ExplorerPlayground
 from flask import request, jsonify
 from queries.teacher.queries import listTeacher_resolver
+from queries.subject.queries import listSubject_resolver
+from mutations.subject.mutation import createSubject_resolver
 
-subject_api = Flask(__name__)
-CORS(subject_api)
+app = Flask(__name__)
+CORS(app)
 
 PLAYGROUND_HTML = ExplorerPlayground(title="Cool API").html(None)
 
 query = ObjectType("Query")
+mutation = ObjectType("Mutation")
+
+#Teachers
 query.set_field("listTeachers", listTeacher_resolver)
+
+#Subject
+query.set_field("listSubjects", listSubject_resolver)
+mutation.set_field("createSubject", createSubject_resolver)
+
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(
-    type_defs, query, snake_case_fallback_resolvers
+    type_defs, query, mutation, snake_case_fallback_resolvers
 )
 
 

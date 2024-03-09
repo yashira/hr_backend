@@ -1,10 +1,18 @@
 schema {
     query: Query
+    mutation: Mutation
 }
 
 type Teacher {
     id: ID!
     first_name: String!
+}
+
+type Subject {
+    id: ID!
+    subject_name: String!
+    description: String
+    grade: Int!
 }
 
 type TeacherResult {
@@ -13,6 +21,17 @@ type TeacherResult {
     teachers: [Teacher]
 }
 
+type SubjectResult {
+    success: Boolean!
+    errors: [String]
+    subjects: [Subject]
+}
+
 type Query {
     listTeachers: TeacherResult!
+    listSubjects: SubjectResult!
+}
+
+type Mutation {
+    createSubject(subject_name: String!, description: String, grade: Int!): SubjectResult!
 }

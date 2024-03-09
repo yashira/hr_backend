@@ -3,13 +3,13 @@ from mongoengine import *
 class Subject(Document):
     subject_name = StringField(max_length=200, required=True)
     description = StringField(max_length=500, required=False)
-    grade = StringField(max_length=500, required=True)
+    grade = IntField(min_value=1, max_value=13, required=True)
 
 
     def to_dict(self):
         return {
             "id": str(self.pk),
-            "subjectName": self.subject_name,
+            "subject_name": self.subject_name,
             "description": self.description,
-            "subjectName": self.grade
+            "grade": self.grade
         }
